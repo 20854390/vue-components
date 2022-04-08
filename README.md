@@ -1,8 +1,13 @@
 # vue-element-chat
 ###导入组件
-`import Chat from '@/components/Chat'`
+    import Chat from '@/components/Chat'
 ###使用组件
-`<Chat :data="chatData" :cid="cid" :messageInput="messageInput" @send-message="handleSendMessageClick" preview-image></Chat>`
+    <Chat :data="chatData" 
+      :cid="cid" 
+      :messageInput="messageInput" 
+      @send-message="handleSendMessageClick" 
+      preview-image
+    ></Chat>
 ###参数说明
 ####data：聊天记录数据
 ####cid：用户ID或其他唯一ID，用于检测切换用户
