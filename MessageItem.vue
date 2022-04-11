@@ -9,7 +9,7 @@
         <div class="username" v-else>{{name}}<span class="time">{{ date }}</span></div>
         <div class="message" :class="'message-'+message.type">
           <div v-if="message.type==='text'" @click="handleMessageClick">{{message.data}}</div>
-          <div v-if="message.type==='image'" @click="handleMessageClick"><el-image :preview-src-list="previewImage?[message.data]:[]" :src="message.data"></el-image></div>
+          <div v-if="message.type==='image'" @click="handleMessageClick"><el-image fit="scale-down" :preview-src-list="previewImage?[message.data]:[]" :src="message.data"></el-image></div>
         </div>
       </div>
       <div v-if="mine" class="avatar">
@@ -70,7 +70,8 @@ export default {
         margin-top: 5px;
         display: inline-block;
         .el-image{
-          max-width: 300px;
+          width: 100px;
+          height: 100px;
           cursor: pointer;
         }
       }

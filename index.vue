@@ -13,7 +13,6 @@
       <div class="bar-warp">
         <div class="icons">
           <el-upload
-            class="upload-demo"
             accept="image/*"
             :http-request="handleSendImage"
             :show-file-list="false"
@@ -36,7 +35,7 @@
           <el-input size="small" v-model.sync="messageInput" placeholder="请输入聊天内容"></el-input>
         </div>
         <div class="chat-btn">
-          <el-button type="primary" icon="el-icon-s-promotion" size="small" @click="handleSendText">发送</el-button>
+          <el-button type="primary" icon="el-icon-s-promotion" size="small" @click="handleSendText" :loading="messageStatus==='sending'">发送</el-button>
         </div>
       </div>
     </div>
@@ -89,16 +88,15 @@ export default {
       type:Boolean,
       default: false
     },
-    messageInput:{
-      type:String
-    }
   },
   data() {
     return {
       showQuick: false,
       dialogQuickVisible: false,
       quickData: [],
-      quickKey:'vue_chat_quick_words'
+      quickKey:'vue_chat_quick_words',
+      messageStatus:'success',
+      messageInput:''
     }
   },
   created() {
@@ -108,7 +106,12 @@ export default {
     handleSendText() {
       this.$emit('send-message',{
         type:'text',
-        data:this.messageInput
+        data:this.messageInput,
+      },(status)=>{
+        if(status==='success'){
+          this.messageInput = ''
+        }
+        this.messageStatus = status
       })
     },
     handleSendImage(data){
@@ -156,33 +159,26 @@ export default {
 <style scoped lang="scss">
 .chat {
   height: 100%;
-
   .chat-main {
     border: 1px solid #E3EBFF;
     height: 100%;
-
     .chat-warp {
       padding: 0 30px;
     }
   }
-
   .chat-bar {
     margin-top: 10px;
     padding: 0 10px;
-
     .bar-warp {
       display: flex;
-
       .icons {
         width: 30px;
         font-size: 30px;
         margin: 0 5px;
         position: relative;
-
         i {
           cursor: pointer;
         }
-
         .quick-warp {
           position: absolute;
           width: 200px;
@@ -203,37 +199,28 @@ export default {
               }
             }
           }
-
           div {
             padding: 5px 0;
             color: #909399;
           }
-
           .add .el-link {
             font-size: 12px;
           }
         }
       }
-
       .chat-input {
         flex: 1;
         margin-left: 10px;
         margin-right: 10px;
       }
-
-      .chat-btn {
-
-      }
     }
   }
-
   .dialog-quick {
     .form-quick {
       width: 380px;
       margin: 0 auto;
     }
   }
-
 }
 
 </style>
