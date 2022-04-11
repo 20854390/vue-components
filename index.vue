@@ -124,11 +124,9 @@ export default {
       this.$emit('message-click',message)
     },
     handleQuickClick(text){
-      this.$emit('send-message',{
-        type:'text',
-        data:text
-      })
       this.showQuick = false
+      this.messageInput = text
+      this.handleSendText()
     },
     handleSaveQuick(){
       this.setQuickWords(this.quickData)
