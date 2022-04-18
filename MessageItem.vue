@@ -2,18 +2,18 @@
   <div class="message-item">
     <div :class="'user-'+(mine?'right':'left')">
       <div v-if="!mine" class="avatar">
-        <el-avatar :size="60" :src="avatar"></el-avatar>
+        <el-avatar :size="60" :src="avatar" />
       </div>
       <div class="message-warp">
-        <div class="username" v-if="mine"><span class="time">{{ date }}</span>{{name}}</div>
-        <div class="username" v-else>{{name}}<span class="time">{{ date }}</span></div>
+        <div v-if="mine" class="username"><span class="time">{{ date }}</span>{{ name }}</div>
+        <div v-else class="username">{{ name }}<span class="time">{{ date }}</span></div>
         <div class="message" :class="'message-'+message.type">
-          <div v-if="message.type==='text'" @click="handleMessageClick">{{message.data}}</div>
-          <div v-if="message.type==='image'" @click="handleMessageClick"><el-image fit="scale-down" :preview-src-list="previewImage?[message.data]:[]" :src="message.data"></el-image></div>
+          <div v-if="message.type==='text'" @click="handleMessageClick">{{ message.data }}</div>
+          <div v-if="message.type==='image'" @click="handleMessageClick"><el-image fit="scale-down" :preview-src-list="previewImage?[message.data]:[]" :src="message.data" /></div>
         </div>
       </div>
       <div v-if="mine" class="avatar">
-        <el-avatar :size="60" :src="avatar"></el-avatar>
+        <el-avatar :size="60" :src="avatar" />
       </div>
     </div>
   </div>
@@ -22,36 +22,36 @@
 <script>
 
 export default {
-  name: "MessageItem",
-  props:{
-    date:{
-      type:String,
-      default:''
+  name: 'MessageItem',
+  props: {
+    date: {
+      type: String,
+      default: ''
     },
-    mine:{
-      type:Boolean,
-      default:false
+    mine: {
+      type: Boolean,
+      default: false
     },
-    name:{
-      type:String,
-      required:true
+    name: {
+      type: String,
+      required: true
     },
-    avatar:{
-      type:String,
-      required:true
+    avatar: {
+      type: String,
+      required: true
     },
-    message:{
-      type:Object,
-      required:true
+    message: {
+      type: Object,
+      required: true
     },
-    previewImage:{
-      type:Boolean,
+    previewImage: {
+      type: Boolean,
       default: false
     }
   },
-  methods:{
-    handleMessageClick(){
-      this.$emit('message-click',this.message)
+  methods: {
+    handleMessageClick() {
+      this.$emit('message-click', this.message)
     }
   }
 }
@@ -62,13 +62,21 @@ export default {
   .user-left,.user-right{
     display: flex;
     padding: 10px 0;
+    .avatar{
+      width: 60px;
+    }
     .message-warp{
+     flex: 1;
+      overflow: hidden;
       .message{
         border-radius: 5px;
         overflow: hidden;
+        max-width: 100%;
         padding: 15px;
         margin-top: 5px;
         display: inline-block;
+        word-wrap:break-word;
+        text-align: left;
         .el-image{
           width: 100px;
           height: 100px;
